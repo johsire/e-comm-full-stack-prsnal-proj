@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 // import '../App.css';
 
 
 class ShoppingCart extends Component {
+  componentDidMount() {
+    axios.get('/api/user-data').then(res => {
+    // invoke an action creator to update redux store;
+      this.props.updateUserData(res.data);
+    });
+  };
+
+  logout() {
+    axios.get('/api/logout').then(res => {
+      this.props.history.push('/');
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -11,10 +25,21 @@ class ShoppingCart extends Component {
         </header>
         <p className="App-intro">
           This will be the Shopping Cart page.
+          <p>
+            <button>Logout</button>
+          </p>
         </p>
       </div>
     );
   }
 }
 
-export default ShoppingCart;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+};
+
+// local component obj to redux store state object + the second one is our action creator which is optional and always goes in a the second argument;
+
+export default connect(mapStateToProps, {updateUserData})(ShoppingCart);

@@ -58,16 +58,28 @@ app.get('/auth/callback', async (req, res) => {
   if (foundUser[0]) {
       req.session.user = foundUser[0];
       // this path ('/') simply means ==> res.redirect('http://localhost:3000/');
-      res.redirect('/#private');
+      res.redirect('/#shoppingcart');
   } else {
     //   Create new User;
     let createdUser = await db.create_user([name, email, sub, picture]);
     // put on session
     req.session.user = createdUser[0];
-    res.redirect('/#/private');
+    res.redirect('/#/shoppingcart');
   };
 });
 
+app.get('api.user-data', (req, res) => {
+    if(req.session.user) {
+       res.status(200).send(req.session.user);
+    } else {
+        res.status(401).send('Nice try sucka!');
+    };
+});
+
+app.get('/api/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('http://localhost:3000');
+});
 
 app.listen(SERVER_PORT, () => {
     console.log(`W.Ferrell Crashing Weddings on Port: ${SERVER_PORT}`);
