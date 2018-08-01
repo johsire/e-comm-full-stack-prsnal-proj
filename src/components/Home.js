@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import '../App.css';
+import '../App.css';
 
 
 class Home extends Component {
@@ -10,7 +10,7 @@ class Home extends Component {
           <h1 className="App-title">HOME PAGE</h1>
         </header>
         <p className="App-intro">
-          This will be the Home/ Landing page.
+          This will the Landing page.
         </p>
       </div>
     );

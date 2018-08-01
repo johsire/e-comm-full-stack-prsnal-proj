@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import App from './App'
+import Home from './components/Home'
 import Men from './components/Men';
 import Women from './components/Women';
 import Kids from './components/Kids';
@@ -12,7 +12,7 @@ import ShoppingCart from './components/ShoppingCart';
 
 export default (
   <Switch>
-    <Route component={ App } exact path="/" />
+    <Route component={ Home } exact path="/" />
     <Route component={ Men } path='/Men' />
     <Route component={ Women } path='/Women' />
     <Route component={ Kids } path='/kids' />
