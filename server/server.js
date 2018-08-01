@@ -25,11 +25,30 @@ app.use(session({
   saveUninitialized: false  
 }));
 
+// redrirect url in login.js component;
+app.get('/auth/callback', async (req, res) => {
+    // req.query.code =====> code from auth0 to our endpoint in the front end;
+    // http://localhost:3005/auth/callback?code=hfj34834673yh
+    // now our payload object;
+    // req.query = { code: hfj34834673yh }
+    let payload = {
+      client_id: REACT_APP_CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code: req.query.code,
+      grant_type: 'authorization_code',
+      redirect_uri: `http://${req.headers.host}/auth/callback`
+    };
+  
+    // use the code from auth0 to get a token
+    // we are sending the payload object and the url - since we're sedning its a post;
+  let resWithToken = await axios.post(`https://${REACT_APP_DOMAIN}/oauth/token`, payload);
+  
+  // use the access token to get user info for whoever logged in;
+  let resWithUserData = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${resWithToken.data.access_token}`);
 
-
-
+});
 
 
 app.listen(SERVER_PORT, () => {
     console.log(`W.Ferrell Crashing Weddings on Port: ${SERVER_PORT}`);
-})
+});
