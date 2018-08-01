@@ -46,6 +46,26 @@ app.get('/auth/callback', async (req, res) => {
   // use the access token to get user info for whoever logged in;
   let resWithUserData = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${resWithToken.data.access_token}`);
 
+  // db calls;
+  // put user-data on req.session object;
+  // req.session.user = responseFromDB;
+  // req.session = { user: {} };
+  const db = req.app.get('db');
+  let {sub, email, name, picture} = resWithUserData.data;
+  let foundUser = await db.find_user([sub]);
+
+  // req.session.user is anyone logged in - if no one is then it will return an empty array;
+  if (foundUser[0]) {
+      req.session.user = foundUser[0];
+      // this path ('/') simply means ==> res.redirect('http://localhost:3000/');
+      res.redirect('/#private');
+  } else {
+    //   Create new User;
+    let createdUser = await db.create_user([name, email, sub, picture]);
+    // put on session
+    req.session.user = createdUser[0];
+    res.redirect('/#/private');
+  };
 });
 
 
