@@ -8,6 +8,7 @@ import Kids from './components/Kids';
 import QuickView from './components/QuickView';
 import Equipment from './components/Equipment';
 import ShoppingCart from './components/ShoppingCart';
+import Login from './components/Login';
 
 
 export default (
@@ -19,5 +20,6 @@ export default (
     <Route component={ Equipment } path='/equipment' />
     <Route component={ QuickView } path='/quickview' />
     <Route component={ ShoppingCart } path='/shoppingcart' />
+    <Route component={ Login } path='/login' />
   </Switch>
 );

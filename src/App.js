@@ -26,6 +26,7 @@ class App extends Component {
           <Link to="/equipment" className='links'>Equipment</Link>
           <Link to="/shoppingcart" className='links'>ShoppingCart</Link>
           <Link to="/quickview" className='links'>QuickView</Link>
+          <Link to="/login" className='links'>Login</Link>
 
          </nav>
 
