@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 // import '../App.css';
+import {connect} from 'react-redux';
+import {updateUserData} from '../ducks/reducer';
 
 
 class ShoppingCart extends Component {
@@ -26,7 +28,7 @@ class ShoppingCart extends Component {
         <p className="App-intro">
           This will be the Shopping Cart page.
           <p>
-            <button>Logout</button>
+            <button className="btn">Logout</button>
           </p>
         </p>
       </div>
